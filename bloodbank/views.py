@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib import messages
 from .models import *
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -75,3 +76,15 @@ def add_member(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+
+def check(request):
+    print(request.POST['username'])
+    username = request.POST['username']
+
+    if User.objects.filter(username=username).exists():
+           return JsonResponse({'message' : 'User Exist'})
+
+    else:
+        return JsonResponse({'message' : ' '})
+
+

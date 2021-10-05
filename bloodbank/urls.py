@@ -7,4 +7,5 @@ urlpatterns = [
     path('table', table, name='table'),
     path('add_member', add_member, name='add_member'),
     path('logout', logout, name='logout'),
+    path('check', check, name='check'),
 ]
