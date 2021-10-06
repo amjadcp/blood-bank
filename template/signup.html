@@ -36,6 +36,7 @@
                         <div class="form-outline form-white mb-4">
                           <label class="form-label" for="typePasswordX">Password</label> 
                           <input type="password" id="typePasswordX" class="form-control form-control-lg" name='password1' />
+                          <span id='msg'></span>
                         </div>
 
                         <div class="form-outline form-white mb-4">
@@ -76,10 +77,16 @@
             $(document).ready( () => {
               $('#username').keyup( () => {
                 var Username = $('#username').val()
+                var password = $('#typePasswordX').val()
+                console.log(password)
                 var data = {
                   'csrfmiddlewaretoken' : '{{csrf_token}}',
-                  'Username' : Username
+                  'Username' : Username,
+                  'password' : password,
                 }
+
+
+                
 
                 $.ajax({
                   url : 'check',
@@ -91,7 +98,7 @@
                       $("#message").html(responce.message)
                     }
 
-                    else{
+                    if(responce.message == ' '){
                       $("#message").html('Username Available')
                     }  
                     
@@ -100,6 +107,28 @@
 
               })
             })
+
+          </script>
+
+          <script>
+
+$(document).ready( () => {
+              $('#password').keyup( () => {
+                var password = $('#password').val()
+                var username = $('#username').val()
+                if (password.length != 8){
+
+                    $("#meg").html('Minimum 8')
+
+                }
+
+                if(password==username){
+                    $("#meg").html('Username not allowed')
+                }
+                
+              
+                })
+
           </script>
 
     </body>

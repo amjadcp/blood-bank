@@ -88,11 +88,46 @@ def add_member(request):
     else:
         return redirect('login')
 
+
+def update_member(request, id):
+    if request.session.has_key('username'):
+        member = Add_member.objects.get(id=id)
+        name = member.name
+        age = member.age
+        phone_number = member.phone_number
+        blood_group = member.blood_group
+        context = {
+            'name' : name,
+            'age' : age,
+            'phone_number' : phone_number,
+            'blood_group' : blood_group
+        }
+
+        if request.method == 'POST':
+            name = request.POST['name']
+            age = int(request.POST['age'])
+            phone_number = int(request.POST['phonenumber'])
+            blood_group = request.POST['bloodgroup']
+            
+            member.name = name
+            member.age = age
+            member.phone_number = phone_number
+            member.blood_group = blood_group
+            member.save()
+            return redirect('table')
+        else: 
+           return render(request, 'update.html', context)
+    else:
+           return redirect('table')
+
+
 def delete_member(request, id):
-    # if request.op == True:
-    member = Add_member.objects.get(id=id)
-    member.delete()
-    return redirect('table')
+    if request.session.has_key('username'):
+        member = Add_member.objects.get(id=id)
+        member.delete()
+        return redirect('table')
+    else:
+        return redirect('login')
          
 
 def logout(request):
@@ -103,6 +138,7 @@ def logout(request):
 def check(request):
     print(request.POST['Username'])
     username = request.POST['Username']
+
 
     if User.objects.filter(username=username).exists():
            return JsonResponse({'message' : 'User Exist'})
