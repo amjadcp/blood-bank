@@ -1,0 +1,1 @@
+web: gunicorn day12project.wsgi
