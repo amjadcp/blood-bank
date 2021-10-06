@@ -23,6 +23,7 @@
       <th scope="col">Age</th>
       <th scope="col">Phone Number</th>
       <th scope="col">Blood Group</th>
+      <th scope="col"> &nbsp; </th>
     </tr>
   </thead>
 
@@ -30,17 +31,46 @@
 {% for element in data%}
     <tr>
       <th scope="row"> {{ element.id }} </th>
-      <td> {{ element.name }} </td>
+      <td id={{element.age}}> {{ element.name }} </td>
       <td>{{ element.age }}</td>
       <td>{{ element.phone_number }}</td>
       <td>{{ element.blood_group }}</td>
+      <td>
+         <form action="delete_member/{{element.id}}" method="POST">
+
+          <button class="btn btn-primary" id='{{element.id}}'> 
+
+         <a class="btn btn-primary" href='delete_member/{{element.id}}' >Delete</a>
+          
+         </button>
+        
+         </form>
+      </td>
     </tr>
 
 
 {% endfor %}
 
   </tbody>
-
 </table>
+
+          <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+          <script>
+            $('#{{element.id}}').click( ()=>{
+
+              alert('Do you want to delete')
+              //  var data = { 'op' : op }
+              //  $.ajax({
+   
+              //   url: 'delete_member/{{element.id}}',
+              //   data : data,
+              //   dataType : 'json',
+              //   // method : 'POST',
+
+              //  })
+
+            } )
+          </script>
+
 </body>
 </html>

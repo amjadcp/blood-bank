@@ -68,10 +68,10 @@ def add_member(request):
     # username = request.session['username']
     if request.session.has_key('username'):
        if request.method == 'POST':
-            name = request.POST.get['name']
-            age = int(request.POST.get['age'])
-            phone_number = int(request.POST.get['phonenumber'])
-            blood_group = request.POST.get['bloodgroup']
+            name = request.POST['name']
+            age = int(request.POST['age'])
+            phone_number = int(request.POST['phonenumber'])
+            blood_group = request.POST['bloodgroup']
             Add_member.objects.create(
                 name=name,
                 age=age,
@@ -87,6 +87,12 @@ def add_member(request):
 
     else:
         return redirect('login')
+
+def delete_member(request, id):
+    # if request.op == True:
+    member = Add_member.objects.get(id=id)
+    member.delete()
+    return redirect('table')
          
 
 def logout(request):
@@ -95,8 +101,8 @@ def logout(request):
     return redirect('login')
 
 def check(request):
-    print(request.POST['username'])
-    username = request.POST['username']
+    print(request.POST['Username'])
+    username = request.POST['Username']
 
     if User.objects.filter(username=username).exists():
            return JsonResponse({'message' : 'User Exist'})

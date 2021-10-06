@@ -75,10 +75,10 @@
           <script>
             $(document).ready( () => {
               $('#username').keyup( () => {
-                var username = $('#username').val()
+                var Username = $('#username').val()
                 var data = {
                   'csrfmiddlewaretoken' : '{{csrf_token}}',
-                  'username' : username
+                  'Username' : Username
                 }
 
                 $.ajax({
